@@ -1,0 +1,179 @@
+/* Styles personnalisés pour le module E-commerce */
+
+/* Wrapper principal pour les pages e-commerce */
+.ecommerce-wrapper {
+    /* Peut être utilisé pour des styles globaux spécifiques à la boutique */
+}
+
+/* Panneau principal simplifié pour l'e-commerce */
+.main-panel-ecommerce {
+    width: 100%;
+    min-height: calc(100vh - 70px - 70px); /* Hauteur minimale pour pousser le footer en bas (vh - hauteur header - hauteur footer approx) */
+    padding-top: 20px; /* Espace après le header fixe */
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-panel-ecommerce .container {
+    flex-grow: 1;
+}
+
+
+/* Styles pour les cartes produits */
+.product-card {
+    transition: transform .2s ease-out, box-shadow .2s ease-out;
+    border: 1px solid #eee;
+    border-radius: .25rem; /* Match Bootstrap card radius */
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.product-card .card-img-top {
+    max-height: 220px; /* Hauteur standard pour les images de produits */
+    object-fit: cover; /* Assure que l'image couvre la zone sans se déformer */
+    border-bottom: 1px solid #eee;
+}
+
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem; /* Ajustement du padding si KaiAdmin est différent */
+}
+
+.product-card .card-title a {
+    color: #333;
+    text-decoration: none;
+}
+.product-card .card-title a:hover {
+    color: var(--bs-primary);
+}
+
+
+/* Bannière principale sur la page d'accueil */
+.banner-section .card-img-overlay h1,
+.banner-section .card-img-overlay .lead {
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+/* Page de détail produit */
+.product-detail-page .main-product-image {
+    border: 1px solid #ddd;
+}
+.product-detail-page .thumbnails img:hover {
+    border-color: var(--bs-primary);
+}
+.product-detail-page .nav-tabs .nav-link {
+    color: #495057;
+}
+.product-detail-page .nav-tabs .nav-link.active {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary) var(--bs-primary) #fff;
+}
+.product-detail-page .tab-content {
+    border: 1px solid #dee2e6;
+    border-top: 0;
+    padding: 1.5rem;
+}
+
+/* Page Panier */
+.cart-page .table th, .cart-page .table td {
+    vertical-align: middle;
+}
+.cart-page .form-control-sm {
+    height: calc(1.5em + 0.5rem + 2px);
+    padding: 0.25rem 0.5rem;
+    font-size: .875rem;
+}
+.cart-page .cart-summary {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 0.25rem;
+}
+
+/* Page Checkout */
+.checkout-page .card {
+    margin-bottom: 1.5rem;
+}
+
+/* Page Confirmation */
+.confirmation-page .card {
+    max-width: 700px;
+    margin: auto;
+}
+.confirmation-page .order-summary {
+    border: 1px solid #eee;
+}
+
+/* Page Suivi de Commande */
+.order-status-timeline .list-group-item {
+    border-left: 3px solid #eee;
+    padding-left: 1.5rem;
+    position: relative;
+}
+.order-status-timeline .list-group-item i.fas { /* Cibler spécifiquement les icônes FontAwesome pour la couleur */
+    color: #adb5bd; /* Gris par défaut */
+    margin-right: 0.5rem;
+}
+.order-status-timeline .list-group-item.completed {
+    border-left-color: var(--bs-success); /* Vert pour complété */
+}
+.order-status-timeline .list-group-item.completed i.fas {
+    color: var(--bs-success);
+}
+ .order-status-timeline .list-group-item.cancelled {
+    border-left-color: var(--bs-danger); /* Rouge pour annulé */
+}
+.order-status-timeline .list-group-item.cancelled i.fas {
+    color: var(--bs-danger);
+}
+.order-status-timeline .list-group-item::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #eee;
+    border: 2px solid #fff;
+}
+.order-status-timeline .list-group-item.completed::before {
+    background-color: var(--bs-success);
+}
+.order-status-timeline .list-group-item.cancelled::before {
+    background-color: var(--bs-danger);
+}
+
+
+/* Ajustement pour le header fixe */
+.fixed-top + .main-panel-ecommerce {
+    padding-top: 70px; /* Hauteur approx du header + un peu de marge */
+}
+
+/* Footer de l'e-commerce */
+.ecommerce-footer {
+    /* border-top: 1px solid #eee; */ /* Optionnel */
+}
+
+/* Badge compteur panier dans le header */
+.navbar .cart-count-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    font-size: 0.7em;
+    padding: .25em .5em;
+    display: none; /* Affiché par JS si > 0 */
+}
+
+/* Sticky sidebar for filters */
+.catalog-page .filter-sidebar {
+    position: sticky;
+    top: 85px; /* Ajuster en fonction de la hauteur du header fixe + marge */
+    max-height: calc(100vh - 100px); /* Limiter la hauteur et permettre le scroll interne si besoin */
+    overflow-y: auto;
+}
