@@ -1,3 +1,5 @@
+version: '3.9'
+
 services:
   app:
     build:
@@ -5,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: laravel-app:dev
     working_dir: /var/www
-    user: "1000:1000"  # Utilise l'UID/GID de l'utilisateur hôte
+    user: "1000:1000"
     volumes:
       - .:/var/www
       - node_modules:/var/www/node_modules
@@ -15,9 +17,9 @@ services:
       bash -c "php artisan migrate --force || true && php artisan db:seed --force || true && php-fpm"
     depends_on:
       mysql:
-        condition: service_healthy # Attendre que MySQL soit prêt
+        condition: service_healthy
       redis:
-        condition: service_started # Peut être service_healthy si redis a un healthcheck
+        condition: service_started
     networks:
       - app-network
 
@@ -45,7 +47,7 @@ services:
     ports:
       - "3307:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ularavel", "-psecret"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -59,7 +61,7 @@ services:
       - redis_data_dev:/data
     ports:
       - "6379:6379"
-    healthcheck: # Ajout d'un healthcheck simple pour Redis
+    healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
