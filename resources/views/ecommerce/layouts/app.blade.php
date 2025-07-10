@@ -33,11 +33,17 @@
     <link rel="stylesheet" href="{{ asset('assets/css/kaiadmin.min.css') }}" /> <!-- Style de base KaiAdmin -->
 
     <!-- CSS Custom pour l'e-commerce si nécessaire -->
-    <link rel="stylesheet" href="{{ asset('assets/css/ecommerce.css') }}"> <!-- À créer plus tard si besoin -->
+    <link rel="stylesheet" href="{{ asset('assets/css/ecommerce.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-ecommerce.css') }}"> <!-- Ajout du CSS personnalisé -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     @stack('styles') <!-- Pour les styles spécifiques à une page -->
 </head>
-<body>
+<body class="ecommerce-page"> <!-- Ajout de la classe ecommerce-page -->
     <div class="wrapper ecommerce-wrapper"> <!-- Classe spécifique pour le layout e-commerce -->
 
         @include('ecommerce.partials.header') <!-- Header de la boutique -->
