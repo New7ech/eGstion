@@ -1,0 +1,443 @@
+/* Styles personnalisés pour la page d'accueil e-commerce */
+
+/* Importation des polices Google Fonts (déjà fait dans le layout, mais peut être gardé ici pour référence) */
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap'); */
+
+/* Variables de couleurs et polices */
+:root {
+    --primary-color: #007bff; /* Bleu Bootstrap par défaut, peut être surchargé par Kaiadmin */
+    --secondary-color: #6c757d;
+    --light-gray-color: #f8f9fa; /* Pour les fonds de section clairs */
+    --dark-gray-color: #343a40; /* Pour le texte principal */
+    --white-color: #ffffff;
+    --font-family-headings: 'Montserrat', sans-serif;
+    --font-family-base: 'Roboto', sans-serif;
+    --text-color-light: #f8f9fa; /* Pour texte sur fond sombre */
+    --text-color-dark: #212529;  /* Pour texte sur fond clair */
+    --link-hover-color: #0056b3; /* Bleu plus foncé pour hover */
+    --section-padding-y: 5rem; /* 80px */
+    --card-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --card-hover-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2);
+    --border-radius: 0.375rem; /* 6px, correspond à .rounded de Bootstrap 5 */
+}
+
+/* Styles de base pour la page d'accueil */
+.home-page {
+    overflow-x: hidden; /* Empêcher le défilement horizontal accidentel */
+}
+
+body.ecommerce-page {
+    font-family: var(--font-family-base);
+    color: var(--text-color-dark);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-family-headings);
+    font-weight: 700;
+    color: var(--text-color-dark);
+}
+
+/* Utilitaires de section */
+.section-padding {
+    padding-top: var(--section-padding-y);
+    padding-bottom: var(--section-padding-y);
+}
+
+.bg-light-gray {
+    background-color: var(--light-gray-color) !important; /* !important pour surcharger les styles inline ou Bootstrap */
+}
+
+.section-header {
+    margin-bottom: 3rem; /* 48px */
+}
+
+.section-title {
+    font-size: 2.25rem; /* 36px */
+    font-weight: 700;
+    margin-bottom: 0.5rem; /* 8px */
+}
+
+.section-tagline {
+    font-size: 1.125rem; /* 18px */
+    color: var(--secondary-color);
+    font-weight: 400;
+}
+
+/* Bouton personnalisé primaire (si celui de KaiAdmin/Bootstrap ne suffit pas) */
+.btn-custom-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white-color) !important; /* Assurer la lisibilité */
+    padding: 0.75rem 1.5rem; /* 12px 24px */
+    font-family: var(--font-family-headings);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.btn-custom-primary:hover,
+.btn-custom-primary:focus {
+    background-color: var(--link-hover-color);
+    border-color: var(--link-hover-color);
+    color: var(--white-color) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+}
+
+.btn-custom-primary:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+/* --- Section Hero --- */
+.hero-section {
+    position: relative;
+    background: url('https://picsum.photos/seed/mainbanner/1920/1080') no-repeat center center/cover;
+    min-height: 80vh; /* Hauteur de la bannière */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--section-padding-y) 1rem; /* padding pour petits écrans */
+}
+
+.hero-section .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay sombre pour lisibilité */
+    z-index: 1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+    max-width: 800px; /* Limiter la largeur du contenu texte */
+}
+
+.hero-title {
+    font-size: 3rem; /* 48px */
+    font-weight: 700;
+    color: var(--white-color);
+    margin-bottom: 1rem; /* 16px */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem; /* 24px */
+    color: var(--white-color);
+    margin-bottom: 2rem; /* 32px */
+    font-weight: 400;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.hero-cta {
+    padding: 1rem 2.5rem; /* 16px 40px */
+    font-size: 1.125rem; /* 18px */
+}
+
+/* Animations pour la section Hero */
+.animated-title, .animated-subtitle, .animated-cta {
+    opacity: 0;
+    transform: translateY(30px);
+    animation-duration: 0.8s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+}
+
+.animated-title.fade-in-up { animation-name: fadeInUp; }
+.animated-subtitle.fade-in-up { animation-name: fadeInUp; animation-delay: 0.3s; }
+.animated-cta.fade-in-up { animation-name: fadeInUp; animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Section Highlights (Avantages) --- */
+.highlights-section .highlight-item {
+    padding: 1.5rem; /* 24px */
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlights-section .highlight-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.highlights-section .highlight-icon i {
+    transition: transform 0.3s ease;
+}
+
+.highlights-section .highlight-item:hover .highlight-icon i {
+    transform: scale(1.1);
+}
+
+.highlights-section .highlight-title {
+    font-size: 1.25rem; /* 20px */
+    margin-bottom: 0.5rem; /* 8px */
+}
+
+/* --- Section Produits Phares --- */
+.featured-products-section {
+    /* Styles spécifiques si besoin, sinon utilise .section-padding et .bg-light-gray */
+}
+
+.product-grid .product-grid-item {
+    /* La carte produit est déjà stylée dans product-card.blade.php et ecommerce.css */
+    /* On peut ajouter des effets d'apparition ici si on veut */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: itemFadeInUp 0.5s forwards ease-out;
+}
+
+/* Animation pour les items de la grille de produits */
+@for $i from 1 through 12 { /* Max 12 items pour la démo */
+    .product-grid-item:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.1}s;
+    }
+}
+
+@keyframes itemFadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Styles sur la carte produit (complément à ceux dans product-card.blade.php) */
+.product-card {
+    border: 1px solid #e9ecef; /* Bordure plus subtile */
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.product-card .product-card-img {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    /* La hauteur et object-fit sont déjà dans product-card.blade.php */
+}
+
+.product-card .card-body {
+    padding: 1.25rem; /* 20px */
+}
+
+.product-card .card-title a {
+    color: var(--text-color-dark);
+}
+.product-card .card-title a:hover {
+    color: var(--primary-color);
+}
+
+.product-card .add-to-cart-btn {
+    /* Le style est déjà dans product-card.blade.php, on peut affiner */
+    padding: 0.6rem 1.2rem; /* Ajuster padding si besoin */
+    font-size: 0.9rem;
+}
+.product-card .add-to-cart-btn i {
+    margin-right: 0.5rem;
+}
+
+
+/* --- Section CTA (Call to Action) --- */
+.cta-section {
+    position: relative;
+    background: url('https://picsum.photos/seed/ctabanner/1920/600') no-repeat center center/cover;
+    color: var(--white-color);
+}
+
+.cta-section .cta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(40, 50, 70, 0.7); /* Overlay bleu-gris foncé */
+    z-index: 1;
+}
+
+.cta-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-title {
+    font-size: 2rem; /* 32px */
+    color: var(--white-color);
+    margin-bottom: 1rem; /* 16px */
+}
+
+.cta-text {
+    font-size: 1.125rem; /* 18px */
+    margin-bottom: 2rem; /* 32px */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Section Categories Showcase --- */
+.categories-showcase-section {
+    /* Styles spécifiques si besoin */
+}
+
+.category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.category-card-link {
+    display: block;
+    text-decoration: none;
+}
+
+.category-card-img {
+    width: 100%;
+    height: 250px; /* Hauteur fixe pour les images de catégorie */
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.category-card:hover .category-card-img {
+    transform: scale(1.1); /* Effet de zoom sur l'image */
+}
+
+.category-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 1rem; /* 24px 16px */
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    text-align: center;
+}
+
+.category-card-title {
+    font-size: 1.375rem; /* 22px */
+    color: var(--white-color);
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+/* --- Footer (styles de base si non gérés par le layout) --- */
+/* Le footer est inclus via `ecommerce.partials.footer`, on assume qu'il a ses propres styles */
+/* Si on veut forcer un style spécifique depuis la page d'accueil : */
+.home-page ~ footer { /* Sélecteur si le footer est un frère suivant de main.home-page */
+    /* background-color: var(--dark-gray-color); */
+    /* color: var(--text-color-light); */
+}
+
+/* --- Animations au scroll (classe ajoutée par JS) --- */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible, /* Si on utilise une classe 'is-visible' */
+.animate-on-scroll:not(.is-visible) { /* Fallback si la classe n'est pas gérée par JS */
+    /* Styles initiaux avant animation, gérés par l'état initial de .animate-on-scroll */
+}
+
+/* Quand l'élément devient visible (par ex. JS ajoute une classe ou modifie directement) */
+.section-padding.animate-on-scroll.animate-on-scroll, /* Pour cibler les sections */
+.highlight-item.animate-on-scroll,
+.category-card.animate-on-scroll {
+    /* Styles de l'animation d'entrée */
+}
+
+/* Exemple d'animation d'entrée (appliquée par JS ou via :is-visible) */
+.animate-on-scroll { /* État initial */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.animate-on-scroll.fade-in-up-scroll { /* État final */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- Responsivité --- */
+@media (max-width: 991.98px) { /* Tablettes et moins */
+    .hero-title {
+        font-size: 2.5rem; /* 40px */
+    }
+    .hero-subtitle {
+        font-size: 1.25rem; /* 20px */
+    }
+    .section-title {
+        font-size: 1.875rem; /* 30px */
+    }
+    .category-card-img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 767.98px) { /* Mobiles larges et moins */
+    :root {
+        --section-padding-y: 3rem; /* 48px */
+    }
+    .hero-section {
+        min-height: 70vh;
+    }
+    .hero-title {
+        font-size: 2rem; /* 32px */
+    }
+    .hero-subtitle {
+        font-size: 1.125rem; /* 18px */
+    }
+    .hero-cta {
+        padding: 0.8rem 1.8rem; /* 12.8px 28.8px */
+        font-size: 1rem; /* 16px */
+    }
+    .section-title {
+        font-size: 1.75rem; /* 28px */
+    }
+    .section-tagline {
+        font-size: 1rem; /* 16px */
+    }
+    .highlights-section .highlight-item {
+        margin-bottom: 1.5rem; /* Espace entre les items en colonne */
+    }
+    .cta-title {
+        font-size: 1.75rem; /* 28px */
+    }
+    .cta-text {
+        font-size: 1rem; /* 16px */
+    }
+    .category-card {
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 575.98px) { /* Petits mobiles */
+    .hero-section {
+        min-height: 60vh;
+    }
+    .product-grid .row-cols-sm-2 > * { /* Assurer une seule colonne sur très petits écrans si besoin */
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
