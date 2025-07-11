@@ -13,10 +13,10 @@
                     <a class="nav-link {{ request()->routeIs('ecommerce.home') ? 'active' : '' }}" href="{{ route('ecommerce.home') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Catalogue</a> {{-- Lien vers une future page catalogue/produits --}}
+                    <a class="nav-link {{ request()->routeIs('ecommerce.produits.index') ? 'active' : '' }}" href="{{ route('ecommerce.produits.index') }}">Catalogue</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Promotions</a>
+                    <a class="nav-link" href="#">Promotions</a> {{-- TODO: Définir une route pour les promotions ou filtrer le catalogue --}}
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
@@ -32,7 +32,8 @@
                 </form>
 
                 <li class="nav-item ms-3">
-                    <a class="nav-link btn btn-icon btn-round btn-primary" href="{{ route('ecommerce.cart.index') }}" title="Voir le panier">
+                    {{-- Corrigé pour pointer vers la route du PanierController --}}
+                    <a class="nav-link btn btn-icon btn-round btn-primary" href="{{ route('ecommerce.panier.index') }}" title="Voir le panier">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge bg-danger cart-count-badge">0</span> {{-- Le nombre sera mis à jour par JS --}}
                     </a>
