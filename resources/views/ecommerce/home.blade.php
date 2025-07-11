@@ -155,7 +155,7 @@
                 // Simulation de données de catégories enrichies avec slug
                 if (!isset($categories)) {
                     $categories = collect([
-                        (object)['id' => 1, 'nom' => 'Électronique & High-Tech', 'image_url' => 'https://picsum.photos/seed/cat_electro/400/250'],
+                        (object)['id' => 1, 'nom' => 'Électronique & High-Tech', 'slug' => 'electronique-high-tech', 'image_url' => 'https://picsum.photos/seed/cat_electro/400/250'],
                         (object)['id' => 2, 'nom' => 'Mode & Tendances',        'slug' => 'mode-tendances',       'image_url' => 'https://picsum.photos/seed/cat_mode/400/250'],
                         (object)['id' => 3, 'nom' => 'Maison & Décoration',    'slug' => 'maison-decoration',    'image_url' => 'https://picsum.photos/seed/cat_maison/400/250'],
                         (object)['id' => 4, 'nom' => 'Sport & Aventure',       'slug' => 'sport-aventure',       'image_url' => 'https://picsum.photos/seed/cat_sport/400/250'],
