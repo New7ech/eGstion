@@ -43,10 +43,12 @@ Route::middleware(['auth'])->group(function () { // Protéger ces routes si néc
     Route::resource('permissions', PermissionController::class);
 
     // Gestion de l'inventaire et autres fonctionnalités ERP
-    Route::resource('categories', CategorieController::class)->except(['show'])->comment('Gestion des catégories de produits pour l\'ERP'); // Exclure show si géré par e-commerce
+    // Commentaire: Gestion des catégories de produits pour l'ERP
+    Route::resource('categories', CategorieController::class)->except(['show']);
     Route::resource('fournisseurs', FournisseurController::class);
     Route::resource('emplacements', EmplacementController::class);
-    Route::resource('articles', ArticleController::class)->comment('Gestion des articles pour l\'ERP'); // Articles de l'inventaire général
+    // Commentaire: Gestion des articles pour l'ERP (inventaire général)
+    Route::resource('articles', ArticleController::class);
     Route::resource('factures', FactureController::class);
     Route::get('/factures/{facture}/pdf', [FactureController::class, 'genererPdf'])->name('factures.pdf');
     Route::get('/statistiques', [StatistiqueController::class, 'index'])->name('statistiques.index');
@@ -89,7 +91,8 @@ Route::group(['prefix' => 'shop', 'as' => 'ecommerce.'], function () {
     // Si CategorieController gère à la fois ERP et e-commerce avec des vues/logiques différentes,
     // il faudra peut-être des méthodes distinctes ou un contrôleur e-commerce dédié pour les catégories.
     // La méthode 'showEcommerce' a été créée dans CategorieController pour cela.
-    Route::get('/categorie/{slug}', [CategorieController::class, 'showEcommerce'])->name('categories.show')->comment('Afficher les produits d\'une catégorie spécifique');
+    // Commentaire: Afficher les produits d'une catégorie spécifique pour l'e-commerce
+    Route::get('/categorie/{slug}', [CategorieController::class, 'showEcommerce'])->name('categories.show');
 
     // Panier
     // Route pour afficher le contenu du panier
