@@ -25,14 +25,14 @@
                             @foreach($cartItems as $item)
                                 <tr>
                                     <td style="width: 100px;">
-                                        <a href="{{ route('ecommerce.product.show', $item['slug']) }}">
+                                        <a href="{{ route('ecommerce.produits.show', ['slug' => $item['slug']]) }}">
                                             <img src="{{ $item['image_url'] ?? asset('assets/img/examples/product-default-thumb.jpg') }}"
                                                  alt="{{ $item['name'] }}" class="img-fluid rounded" style="max-height: 75px; object-fit: cover;">
                                         </a>
                                     </td>
                                     <td>
                                         <h5 class="mb-0 fs-6">
-                                            <a href="{{ route('ecommerce.product.show', $item['slug']) }}" class="text-dark text-decoration-none">{{ $item['name'] }}</a>
+                                            <a href="{{ route('ecommerce.produits.show', ['slug' => $item['slug']]) }}" class="text-dark text-decoration-none">{{ $item['name'] }}</a>
                                         </h5>
                                         {{-- <small class="text-muted">SKU: XYZ123</small> --}}
                                     </td>

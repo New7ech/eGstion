@@ -12,7 +12,7 @@
 <div class="card product-card h-100 shadow-sm">
     <div class="position-relative">
         {{-- Image du produit --}}
-        <a href="{{ route('ecommerce.product.show', ['slug' => $product->slug ?? '#']) }}">
+        <a href="{{ route('ecommerce.produits.show', ['slug' => $product->slug ?? '#']) }}">
             <img src="{{ $product->image_url ?? asset('assets/img/examples/product_placeholder.jpg') }}"
                  alt="Image de {{ $product->name ?? 'Nom du produit' }}"
                  class="card-img-top product-card-img">
@@ -34,7 +34,7 @@
 
         {{-- Nom du produit --}}
         <h5 class="card-title fs-6 fw-medium mb-2 flex-grow-1">
-            <a href="{{ route('ecommerce.product.show', ['slug' => $product->slug ?? '#']) }}" class="text-dark text-decoration-none product-title-link">
+            <a href="{{ route('ecommerce.produits.show', ['slug' => $product->slug ?? '#']) }}" class="text-dark text-decoration-none product-title-link">
                 {{ $product->name ?? 'Nom du Produit Placeholder' }}
             </a>
         </h5>
