@@ -110,8 +110,8 @@
             <div class="text-center py-5">
                 <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
                 <h4 class="mb-3">Votre panier est actuellement vide.</h4>
-                <p class="text-muted mb-4">Parcourez nos produits pour trouver votre bonheur !</p>
-                <a href="{{ route('ecommerce.produits.index') }}" class="btn btn-primary">
+                <p class="text-muted mb-4">Parcourez nos articles pour trouver votre bonheur !</p>
+                <a href="{{ route('ecommerce.articles.index') }}" class="btn btn-primary">
                     <i class="fas fa-store me-2"></i> Continuer Mes Achats
                 </a>
             </div>
