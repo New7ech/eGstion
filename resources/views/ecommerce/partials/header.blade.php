@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         searchTimeout = setTimeout(() => {
-            fetch(`/shop/search?query=${query}`)
+            fetch(`{{ route('ecommerce.search') }}?query=${query}`)
                 .then(response => response.json())
                 .then(data => {
                     searchResults.innerHTML = '';
