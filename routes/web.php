@@ -16,7 +16,6 @@ use App\Http\Controllers\ProductController as EcommerceProductController; // Ren
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommandeController; // Ajouté pour la gestion des commandes
-use App\Http\Controllers\ProduitController; // Ajouté pour la gestion des produits e-commerce
 use App\Http\Controllers\PanierController; // Ajouté pour la gestion du panier e-commerce
 // Supposition: CategorieController gérera aussi les catégories e-commerce, sinon créer un contrôleur dédié.
 use App\Models\Accueil;
@@ -80,19 +79,18 @@ Route::group(['prefix' => 'shop', 'as' => 'ecommerce.'], function () {
     // Page d'accueil de la boutique
     Route::get('/', [EcommerceController::class, 'index'])->name('home');
 
-    // Produits
-    // Route pour la liste des produits (catalogue)
-    Route::get('/produits', [ProduitController::class, 'index'])->name('produits.index');
-    // Route pour afficher un produit spécifique (détail produit)
-    // Utilise 'slug' pour une URL plus SEO-friendly, mais on pourrait aussi utiliser 'id'
-    Route::get('/produit/{slug}', [ProduitController::class, 'show'])->name('produits.show');
-    // Route de filtrage (si utilisée par home.blade.php, sinon EcommerceProductController::filter est déjà là)
-    // Si EcommerceProductController::filter est le bon, on le garde. Sinon, on le redirige vers ProduitController.
-    // Pour l'instant, on garde la route existante 'products.filter' car elle est utilisée.
+    // Articles (boutique)
+    // Route pour la liste des articles (catalogue)
+    Route::get('/articles', [ArticleController::class, 'indexEcommerce'])->name('articles.index');
+    // Route pour afficher un article spécifique (détail)
+    Route::get('/article/{slug}', [ArticleController::class, 'showEcommerce'])->name('articles.show');
+
+    // Note: La route 'products.filter' est conservée pour l'instant si elle est utilisée ailleurs,
+    // mais la logique devrait être migrée vers ArticleController à terme.
     Route::get('/products/filter', [EcommerceProductController::class, 'filter'])->name('products.filter');
 
 
-    // Catégories de produits (pour la boutique)
+    // Catégories d'articles (pour la boutique)
     // Si CategorieController gère à la fois ERP et e-commerce avec des vues/logiques différentes,
     // il faudra peut-être des méthodes distinctes ou un contrôleur e-commerce dédié pour les catégories.
     // La méthode 'showEcommerce' a été créée dans CategorieController pour cela.

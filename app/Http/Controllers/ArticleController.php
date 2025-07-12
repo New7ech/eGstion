@@ -204,4 +204,46 @@ class ArticleController extends Controller
 
         return redirect()->route('articles.index')->with('success', 'Article supprimé avec succès.');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Méthodes pour la partie E-commerce
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Affiche la liste des articles pour la boutique en ligne (catalogue).
+     * Seuls les articles marqués comme 'est_visible' sont affichés.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function indexEcommerce(): \Illuminate\View\View
+    {
+        // Récupérer uniquement les articles visibles pour la boutique
+        $articles = Article::where('est_visible', true)->latest()->paginate(12); // Paginer avec 12 articles par page
+
+        // Utilise une nouvelle vue spécifique pour le catalogue e-commerce
+        return view('ecommerce.articles.index', compact('articles'));
+    }
+
+    /**
+     * Affiche les détails d'un article spécifique sur la boutique.
+     *
+     * @param  string  $slug Le slug de l'article.
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
+    public function showEcommerce(string $slug)
+    {
+        // Récupérer l'article par son slug, mais s'assurer qu'il est visible
+        $article = Article::where('slug', $slug)->where('est_visible', true)->first();
+
+        // Si l'article n'est pas trouvé ou n'est pas visible, rediriger
+        if (!$article) {
+            // Redirige vers la liste des articles avec un message d'erreur
+            return redirect()->route('ecommerce.articles.index')->with('erreur', 'Cet article n\'est pas disponible.');
+        }
+
+        // Utilise une vue pour afficher les détails de l'article côté e-commerce
+        return view('ecommerce.articles.show', compact('article'));
+    }
 }
