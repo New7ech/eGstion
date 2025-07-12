@@ -106,17 +106,20 @@
             @if(isset($categories) && $categories->count() > 0)
                 <div class="row g-4">
                     @foreach($categories->take(4) as $categorie)
-                        <div class="col-md-6 col-lg-3">
-                            <article class="category-card">
-                                <a href="{{ route('ecommerce.categories.show', ['slug' => $categorie->slug]) }}" class="category-card-link">
-                                    {{-- Utilisation d'un placeholder Picsum basé sur l'ID de la catégorie pour avoir des images différentes --}}
-                                    <img src="https://picsum.photos/seed/cat{{ $categorie->id }}/400/250" alt="Image de la catégorie {{ $categorie->name }}" class="category-card-img">
-                                    <div class="category-card-overlay">
-                                        <h3 class="category-card-title">{{ $categorie->name }}</h3>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
+                        {{-- On affiche la catégorie seulement si elle a un slug --}}
+                        @if($categorie->slug)
+                            <div class="col-md-6 col-lg-3">
+                                <article class="category-card">
+                                    <a href="{{ route('ecommerce.categories.show', ['slug' => $categorie->slug]) }}" class="category-card-link">
+                                        {{-- Utilisation d'un placeholder Picsum basé sur l'ID de la catégorie pour avoir des images différentes --}}
+                                        <img src="https://picsum.photos/seed/cat{{ $categorie->id }}/400/250" alt="Image de la catégorie {{ $categorie->name }}" class="category-card-img">
+                                        <div class="category-card-overlay">
+                                            <h3 class="category-card-title">{{ $categorie->name }}</h3>
+                                        </div>
+                                    </a>
+                                </article>
+                            </div>
+                        @endif
                     @endforeach
                 </div>
             @else
