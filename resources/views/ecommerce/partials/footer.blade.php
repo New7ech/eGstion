@@ -20,8 +20,8 @@
                     <li><a href="{{ route('ecommerce.home') }}" class="text-muted">Accueil Boutique</a></li>
                     <li><a href="#" class="text-muted">Tous les Produits</a></li>
                     <li><a href="#" class="text-muted">Promotions</a></li>
-                    <li><a href="#" class="text-muted">Mon Panier</a></li>
-                    <li><a href="#" class="text-muted">Suivre ma Commande</a></li>
+                    <li><a href="{{ route('ecommerce.cart.index') }}" class="text-muted">Mon Panier</a></li>
+                    <li><a href="{{ route('ecommerce.order.track') }}" class="text-muted">Suivre ma Commande</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">

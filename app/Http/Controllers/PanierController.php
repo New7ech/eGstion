@@ -93,5 +93,57 @@ class PanierController extends Controller
         return response()->json(['count' => $count]);
     }
 
-    // TODO: Implémenter les méthodes update() et remove() pour une gestion fine du panier.
+    /**
+     * Met à jour la quantité d'un article dans le panier.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'article_id' => 'required|exists:articles,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $articleId = $request->input('article_id');
+        $quantity = $request->input('quantity');
+        $panier = session()->get('panier', []);
+
+        if (isset($panier[$articleId])) {
+            $article = Article::findOrFail($articleId);
+            if ($article->quantite < $quantity) {
+                return back()->with('erreur', 'Stock insuffisant pour l\'article : ' . $article->name);
+            }
+            $panier[$articleId]['quantity'] = $quantity;
+            session()->put('panier', $panier);
+            return back()->with('succes', 'Quantité mise à jour.');
+        }
+
+        return back()->with('erreur', 'Article non trouvé dans le panier.');
+    }
+
+    /**
+     * Supprime un article du panier.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function remove(Request $request)
+    {
+        $request->validate([
+            'article_id' => 'required|exists:articles,id',
+        ]);
+
+        $articleId = $request->input('article_id');
+        $panier = session()->get('panier', []);
+
+        if (isset($panier[$articleId])) {
+            unset($panier[$articleId]);
+            session()->put('panier', $panier);
+            return back()->with('succes', 'Article retiré du panier.');
+        }
+
+        return back()->with('erreur', 'Article non trouvé dans le panier.');
+    }
 }
