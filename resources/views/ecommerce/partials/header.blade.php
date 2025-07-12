@@ -56,6 +56,24 @@
 {{-- Scripts --}}
 @push('styles')
 <style>
+    /* Amélioration du badge du panier */
+    .nav-item.dropdown .btn-primary {
+        position: relative;
+    }
+    .cart-count-badge {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        font-size: 10px;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        padding: 0;
+    }
+
     .mini-cart-dropdown {
         min-width: 300px;
         padding: 0;
@@ -155,9 +173,22 @@
         border-radius: .25rem;
     }
     .search-result-item-none {
-        padding: 0.75rem;
+        padding: 1rem;
         color: #6c757d;
         text-align: center;
+        font-style: italic;
+    }
+    .search-result-footer {
+        display: block;
+        text-align: center;
+        padding: 0.75rem;
+        background-color: #f8f9fa;
+        color: var(--bs-primary);
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .search-result-footer:hover {
+        background-color: #e9ecef;
     }
 </style>
 @endpush
@@ -197,11 +228,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             `;
                             searchResults.innerHTML += resultItem;
                         });
-                        searchResults.style.display = 'block';
+                        // Ajout du lien "Voir tous les résultats"
+                        searchResults.innerHTML += `<a href="/shop/articles?search=${query}" class="search-result-footer">Voir tous les résultats</a>`;
                     } else {
-                        searchResults.innerHTML = '<div class="search-result-item-none">Aucun résultat trouvé.</div>';
-                        searchResults.style.display = 'block';
+                        searchResults.innerHTML = '<div class="search-result-item-none">Aucun article ne correspond à votre recherche.</div>';
                     }
+                    searchResults.style.display = 'block';
                 })
                 .catch(error => console.error('Erreur de recherche:', error));
         }, 300); // Délai de 300ms avant de lancer la recherche
