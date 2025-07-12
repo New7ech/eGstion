@@ -22,10 +22,14 @@
                     <div class="article-info">
                         <h1 class="article-title mb-3">{{ $article->name }}</h1>
 
-                        @if($article->categorie)
+                        @if($article->categorie && $article->categorie->slug)
                             <p class="article-category text-muted">
                                 Catégorie :
-                                <a href="{{ route('ecommerce.categories.show', ['slug' => $article->categorie->slug]) }}">{{ $article->categorie->nom }}</a>
+                                <a href="{{ route('ecommerce.categories.show', ['slug' => $article->categorie->slug]) }}">{{ $article->categorie->name }}</a>
+                            </p>
+                        @elseif($article->categorie)
+                            <p class="article-category text-muted">
+                                Catégorie : {{ $article->categorie->name }}
                             </p>
                         @endif
 
