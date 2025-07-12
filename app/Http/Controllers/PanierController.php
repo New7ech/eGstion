@@ -62,15 +62,6 @@ class PanierController extends Controller
 
         session()->put('panier', $panier);
 
-        if ($request->ajax()) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Article ajouté au panier !',
-                'mini_cart_html' => $this->getMiniCartHtml(),
-                'cart_count' => count(session()->get('panier', [])),
-            ]);
-        }
-
         return redirect()->route('ecommerce.panier.index')->with('succes', 'Article ajouté au panier !');
     }
 
@@ -154,15 +145,5 @@ class PanierController extends Controller
         }
 
         return back()->with('erreur', 'Article non trouvé dans le panier.');
-    }
-
-    /**
-     * Retourne le HTML de la vue du mini-panier.
-     *
-     * @return string
-     */
-    private function getMiniCartHtml()
-    {
-        return view('ecommerce.partials._mini-cart')->render();
     }
 }
