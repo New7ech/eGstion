@@ -16,7 +16,7 @@
                     <a class="nav-link {{ request()->routeIs('ecommerce.articles.index') ? 'active' : '' }}" href="{{ route('ecommerce.articles.index') }}">Catalogue</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Promotions</a> {{-- TODO: Définir une route pour les promotions --}}
+                    <a class="nav-link" href="#">Promotions</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
@@ -25,17 +25,25 @@
                     <a class="nav-link {{ request()->routeIs('ecommerce.order.track') ? 'active' : '' }}" href="{{ route('ecommerce.order.track') }}">Suivre ma commande</a>
                 </li>
 
-                {{-- Recherche --}}
-                <form class="d-flex ms-3" action="{{ route('ecommerce.articles.index') }}" method="GET">
-                    <input class="form-control me-2" type="search" name="search" placeholder="Rechercher un article..." aria-label="Search" value="{{ request('search') }}">
-                    <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
-                </form>
+                {{-- Recherche Asynchrone --}}
+                <li class="nav-item ms-3 search-container">
+                    <form class="d-flex" action="{{ route('ecommerce.articles.index') }}" method="GET" id="live-search-form">
+                        <input class="form-control me-2" type="search" name="search" id="live-search-input" placeholder="Rechercher un article..." aria-label="Search" autocomplete="off">
+                        <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                    <div id="search-results" class="search-results-box"></div>
+                </li>
 
-                <li class="nav-item ms-3">
-                    <a class="nav-link btn btn-icon btn-round btn-primary" href="{{ route('ecommerce.panier.index') }}" title="Voir le panier">
+
+                <li class="nav-item ms-3 dropdown">
+                    <a class="nav-link btn btn-icon btn-round btn-primary dropdown-toggle" href="#" id="cartDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Voir le panier">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge bg-danger cart-count-badge"></span>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-end mini-cart-dropdown" aria-labelledby="cartDropdown" id="mini-cart-container">
+                        {{-- Le contenu du mini-panier sera chargé ici par AJAX/au chargement de la page --}}
+                        @include('ecommerce.partials._mini-cart')
+                    </div>
                 </li>
             </ul>
         </div>
@@ -45,9 +53,6 @@
 {{-- Placeholder pour compenser la hauteur du fixed-top navbar --}}
 <div style="padding-top: 70px;"></div>
 
-<<<<<<< HEAD
-{{-- Script pour mettre à jour le nombre d'articles dans le panier --}}
-=======
 {{-- Scripts --}}
 @push('styles')
 <style>
@@ -189,12 +194,10 @@
 @endpush
 
 @push('scripts')
->>>>>>> 7b4071d072571a16f0aa3c16c4d846f6a85fd7ec
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    // Mise à jour du compteur de panier
     fetchCartCount();
-<<<<<<< HEAD
-=======
 
     // Logique de recherche en direct
     const searchInput = document.getElementById('live-search-input');
@@ -242,11 +245,9 @@ document.addEventListener('DOMContentLoaded', function () {
             searchResults.style.display = 'none';
         }
     });
->>>>>>> 7b4071d072571a16f0aa3c16c4d846f6a85fd7ec
 });
 
 function fetchCartCount() {
-    // Utilise la nouvelle route 'ecommerce.panier.count'
     fetch('{{ route("ecommerce.panier.count") }}')
         .then(response => response.json())
         .then(data => {
@@ -259,3 +260,4 @@ function fetchCartCount() {
         .catch(error => console.error('Erreur lors de la récupération du nombre d\'articles du panier:', error));
 }
 </script>
+@endpush
