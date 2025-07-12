@@ -34,7 +34,7 @@
                 <li class="nav-item ms-3">
                     <a class="nav-link btn btn-icon btn-round btn-primary" href="{{ route('ecommerce.panier.index') }}" title="Voir le panier">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge bg-danger cart-count-badge">0</span>
+                        <span class="badge bg-danger cart-count-badge"></span>
                     </a>
                 </li>
             </ul>
@@ -45,14 +45,15 @@
 {{-- Placeholder pour compenser la hauteur du fixed-top navbar --}}
 <div style="padding-top: 70px;"></div>
 
-{{-- Le script de mise à jour du panier est conservé tel quel car il utilise déjà une route ('ecommerce.cart.count') que nous avons décidé de garder pour la compatibilité AJAX --}}
+{{-- Script pour mettre à jour le nombre d'articles dans le panier --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     fetchCartCount();
 });
 
 function fetchCartCount() {
-    fetch('{{ route("ecommerce.cart.count") }}')
+    // Utilise la nouvelle route 'ecommerce.panier.count'
+    fetch('{{ route("ecommerce.panier.count") }}')
         .then(response => response.json())
         .then(data => {
             const cartBadge = document.querySelector('.cart-count-badge');

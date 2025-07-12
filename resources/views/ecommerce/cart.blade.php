@@ -51,27 +51,17 @@
                                         {{ number_format($item['price'], 2, ',', ' ') }} €
                                     </td>
                                     <td class="text-center" style="min-width: 150px;">
-                                        {{-- La logique de mise à jour du panier est conservée avec les routes cart.* pour l'instant --}}
-                                        <form action="{{ route('ecommerce.cart.update') }}" method="POST" class="d-inline-flex align-items-center cart-update-form">
-                                            @csrf
-                                            <input type="hidden" name="article_id" value="{{ $id }}">
-                                            <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" class="form-control form-control-sm text-center me-2" style="width: 70px;">
-                                            <button type="submit" class="btn btn-outline-primary btn-sm" title="Mettre à jour">
-                                                <i class="fas fa-sync-alt"></i>
-                                            </button>
-                                        </form>
+                                        {{-- TODO: Implémenter la logique de mise à jour --}}
+                                        <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" class="form-control form-control-sm text-center d-inline-block" style="width: 70px;" readonly>
                                     </td>
                                     <td class="text-center fw-bold">
                                         {{ number_format($totalItem, 2, ',', ' ') }} €
                                     </td>
                                     <td class="text-center">
-                                        <form action="{{ route('ecommerce.cart.remove') }}" method="POST" class="cart-remove-form">
-                                            @csrf
-                                            <input type="hidden" name="article_id" value="{{ $id }}">
-                                            <button type="submit" class="btn btn-danger btn-sm" title="Supprimer l'article">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </form>
+                                         {{-- TODO: Implémenter la logique de suppression --}}
+                                        <button class="btn btn-danger btn-sm" title="Supprimer l'article" disabled>
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -84,7 +74,8 @@
                         <a href="{{ route('ecommerce.articles.index') }}" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left me-1"></i> Continuer mes achats
                         </a>
-                        <form action="{{ route('ecommerce.cart.clear') }}" method="POST" class="d-inline-block ms-2 cart-clear-form">
+                        {{-- Formulaire pour vider le panier --}}
+                        <form action="{{ route('ecommerce.panier.vider') }}" method="POST" class="d-inline-block ms-2 cart-clear-form">
                             @csrf
                             <button type="submit" class="btn btn-outline-danger">
                                 <i class="fas fa-times-circle me-1"></i> Vider le panier
@@ -118,35 +109,18 @@
 </div>
 @endsection
 
-{{-- Le script de confirmation est conservé car il est générique --}}
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const clearCartForms = document.querySelectorAll('.cart-clear-form');
-    clearCartForms.forEach(form => {
-        form.addEventListener('submit', function(event) {
+    const clearCartForm = document.querySelector('.cart-clear-form');
+    if (clearCartForm) {
+        clearCartForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            if(typeof swal === 'function') {
-                swal({
-                    title: "Vider le panier ?",
-                    text: "Êtes-vous sûr de vouloir supprimer tous les articles de votre panier ?",
-                    icon: "warning",
-                    buttons: {
-                        cancel: { text: "Annuler", visible: true, className: "btn btn-secondary" },
-                        confirm: { text: "Oui, vider", className: "btn btn-danger" },
-                    },
-                }).then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    }
-                });
-            } else {
-                if (confirm("Êtes-vous sûr de vouloir supprimer tous les articles de votre panier ?")) {
-                    form.submit();
-                }
+            if (confirm("Êtes-vous sûr de vouloir supprimer tous les articles de votre panier ?")) {
+                this.submit();
             }
         });
-    });
+    }
 });
 </script>
 @endpush
