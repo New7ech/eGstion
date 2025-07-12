@@ -52,17 +52,12 @@
             @endif
         </div>
 
-        {{-- Formulaire d'ajout au panier --}}
+        {{-- Bouton d'ajout au panier AJAX --}}
         <div class="mt-auto">
             @if($article->quantite > 0)
-                <form action="{{ route('ecommerce.panier.ajouter') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="article_id" value="{{ $article->id }}">
-                    <input type="hidden" name="quantity" value="1">
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="fas fa-shopping-cart me-1"></i> Ajouter au panier
-                    </button>
-                </form>
+                <button type="button" class="btn btn-primary w-100 add-to-cart-ajax" data-article-id="{{ $article->id }}">
+                    <i class="fas fa-shopping-cart me-1"></i> Ajouter au panier
+                </button>
             @else
                 <button type="button" class="btn btn-secondary w-100" disabled>
                     <i class="fas fa-times-circle me-1"></i> En rupture de stock

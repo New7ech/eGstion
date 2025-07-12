@@ -63,6 +63,7 @@ Route::group(['prefix' => 'shop', 'as' => 'ecommerce.'], function () {
     // Articles (boutique)
     Route::get('/articles', [ArticleController::class, 'indexEcommerce'])->name('articles.index');
     Route::get('/article/{slug}', [ArticleController::class, 'showEcommerce'])->name('articles.show');
+    Route::get('/search', [ArticleController::class, 'search'])->name('search'); // Route pour la recherche AJAX
     // Route de filtre legacy - à migrer
     Route::get('/products/filter', [EcommerceProductController::class, 'filter'])->name('products.filter');
 

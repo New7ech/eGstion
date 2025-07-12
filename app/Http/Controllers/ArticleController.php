@@ -246,4 +246,39 @@ class ArticleController extends Controller
         // Utilise une vue pour afficher les détails de l'article côté e-commerce
         return view('ecommerce.articles.show', compact('article'));
     }
+
+    /**
+     * Recherche des articles en fonction d'un terme et retourne les résultats en JSON.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search(Request $request)
+    {
+        $term = $request->input('query');
+
+        if (empty($term)) {
+            return response()->json([]);
+        }
+
+        $articles = Article::where('est_visible', true)
+                            ->where(function ($query) use ($term) {
+                                $query->where('name', 'LIKE', "%{$term}%")
+                                      ->orWhere('description', 'LIKE', "%{$term}%")
+                                      ->orWhere('sku', 'LIKE', "%{$term}%");
+                            })
+                            ->take(5) // Limiter le nombre de résultats pour la recherche live
+                            ->get(['name', 'slug', 'image_principale']);
+
+        // Formatter les résultats pour inclure l'URL de l'image et l'URL de la page de l'article
+        $results = $articles->map(function ($article) {
+            return [
+                'name' => $article->name,
+                'url' => route('ecommerce.articles.show', $article->slug),
+                'image' => $article->image_url, // Utilise l'accessor
+            ];
+        });
+
+        return response()->json($results);
+    }
 }
