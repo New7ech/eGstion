@@ -217,13 +217,25 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function indexEcommerce(): \Illuminate\View\View
+    public function indexEcommerce(Request $request): \Illuminate\View\View
     {
-        // Récupérer uniquement les articles visibles pour la boutique
-        $articles = Article::where('est_visible', true)->latest()->paginate(12); // Paginer avec 12 articles par page
+        $search = $request->input('search');
+
+        // Récupérer les articles visibles pour la boutique, en appliquant le filtre de recherche si nécessaire
+        $articlesQuery = Article::where('est_visible', true);
+
+        if ($search) {
+            $articlesQuery->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                      ->orWhere('description', 'LIKE', "%{$search}%")
+                      ->orWhere('sku', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $articles = $articlesQuery->latest()->paginate(12)->withQueryString(); // Paginer et conserver les paramètres de la requête
 
         // Utilise une nouvelle vue spécifique pour le catalogue e-commerce
-        return view('ecommerce.articles.index', compact('articles'));
+        return view('ecommerce.articles.index', compact('articles', 'search'));
     }
 
     /**
