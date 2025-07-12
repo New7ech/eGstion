@@ -42,7 +42,7 @@
                     <a href="{{ route('ecommerce.home') }}" class="btn btn-primary btn-lg me-2 mb-2">
                         <i class="fas fa-home me-2"></i> Retour à l'accueil de la boutique
                     </a>
-                    <a href="{{ route('ecommerce.produits.index') }}" class="btn btn-outline-secondary btn-lg mb-2">
+                    <a href="{{ route('ecommerce.articles.index') }}" class="btn btn-outline-secondary btn-lg mb-2">
                         <i class="fas fa-shopping-bag me-2"></i> Continuer vos achats
                     </a>
                 </div>

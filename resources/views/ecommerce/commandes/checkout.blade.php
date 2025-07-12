@@ -115,7 +115,7 @@
                                 </p>
                             @else
                                 <p>Votre panier est vide. Impossible de finaliser la commande.</p>
-                                <a href="{{ route('ecommerce.produits.index') }}" class="btn btn-secondary">Retourner aux produits</a>
+                                <a href="{{ route('ecommerce.articles.index') }}" class="btn btn-secondary">Retourner aux articles</a>
                             @endif
                         </aside>
                     </div>
@@ -126,8 +126,8 @@
                 <i class="fas fa-exclamation-circle fa-4x text-muted mb-3"></i>
                 <h4 class="mb-3">Votre panier est vide.</h4>
                 <p class="text-muted mb-4">Vous ne pouvez pas finaliser une commande sans article dans votre panier.</p>
-                <a href="{{ route('ecommerce.produits.index') }}" class="btn btn-primary">
-                    <i class="fas fa-store me-2"></i> Découvrir nos produits
+                <a href="{{ route('ecommerce.articles.index') }}" class="btn btn-primary">
+                    <i class="fas fa-store me-2"></i> Découvrir nos articles
                 </a>
             </div>
         @endif

@@ -12,7 +12,7 @@
         {{-- Image de l'article --}}
         <a href="{{ route('ecommerce.articles.show', ['slug' => $article->slug]) }}">
             {{-- Utilisation de l'accessor getImageUrlAttribute() du modèle Article --}}
-            <img src="{{ $article->image_url ?? asset('assets/img/examples/product_placeholder.jpg') }}"
+            <img src="{{ $article->image_url ?? asset('assets/img/examples/article_placeholder.jpg') }}"
                  alt="Image de {{ $article->name }}"
                  class="card-img-top article-card-img">
         </a>

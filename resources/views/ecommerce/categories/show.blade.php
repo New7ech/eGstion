@@ -25,13 +25,13 @@
                             {{-- <x-ecommerce.product-card :product="$produit" /> --}}
                             <div class="card product-card h-100">
                                 @if(isset($produit->image_url))
-                                    <a href="{{ route('ecommerce.produits.show', ['slug' => $produit->slug]) }}">
+                                    <a href="{{ route('ecommerce.articles.show', ['slug' => $produit->slug]) }}">
                                         <img src="{{ $produit->image_url }}" class="card-img-top" alt="{{ $produit->name ?? 'Image du produit' }}">
                                     </a>
                                 @endif
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">
-                                        <a href="{{ route('ecommerce.produits.show', ['slug' => $produit->slug]) }}">{{ $produit->name ?? 'Nom du produit' }}</a>
+                                        <a href="{{ route('ecommerce.articles.show', ['slug' => $produit->slug]) }}">{{ $produit->name ?? 'Nom du produit' }}</a>
                                     </h5>
                                     {{-- Afficher le nom de la catégorie si différent ou pour confirmation --}}
                                     {{-- <p class="card-subtitle mb-2 text-muted">{{ $produit->category_name ?? $categorie->nom }}</p> --}}
@@ -70,8 +70,8 @@
         @endif
 
         <div class="text-center mt-5">
-            <a href="{{ route('ecommerce.produits.index') }}" class="btn btn-outline-secondary me-2">
-                <i class="fas fa-th-list me-2"></i> Voir tous les produits
+            <a href="{{ route('ecommerce.articles.index') }}" class="btn btn-outline-secondary me-2">
+                <i class="fas fa-th-list me-2"></i> Voir tous les articles
             </a>
             <a href="{{ route('ecommerce.home') }}" class="btn btn-outline-primary">
                 <i class="fas fa-home me-2"></i> Retour à l'accueil de la boutique
