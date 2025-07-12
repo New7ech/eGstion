@@ -28,7 +28,7 @@
                 {{-- Recherche Asynchrone --}}
                 <li class="nav-item ms-3 search-container">
                     <form class="d-flex" action="{{ route('ecommerce.articles.index') }}" method="GET" id="live-search-form">
-                        <input class="form-control me-2" type="search" name="search" id="live-search-input" placeholder="Rechercher un article..." aria-label="Search" autocomplete="off">
+                        <input class="form-control me-2" type="search" name="search" id="live-search-input" placeholder="Rechercher un article..." aria-label="Search" autocomplete="off" value="{{ request('search') }}">
                         <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
                     </form>
                     <div id="search-results" class="search-results-box"></div>
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         searchTimeout = setTimeout(() => {
-            fetch(`{{ route('ecommerce.search') }}?query=${query}`)
+            fetch(`/shop/search?query=${query}`)
                 .then(response => response.json())
                 .then(data => {
                     searchResults.innerHTML = '';
