@@ -32,22 +32,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [AccueilController::class, 'index'])->name('accueil');
 
 // Gestion des utilisateurs et des rôles (Partie ERP/Admin)
-<<<<<<< HEAD
 Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('categories', CategorieController::class)->except(['show']);
-=======
-// Route::middleware(['auth'])->group(function () { // Protéger ces routes si nécessaire
-    Route::resource('users', UserController::class);
-    Route::resource('roles', RoleController::class);
-    Route::resource('permissions', PermissionController::class);
-
-    // Gestion de l'inventaire et autres fonctionnalités ERP
-    // Commentaire: Gestion des catégories de produits pour l'ERP
-    Route::resource('categories', CategorieController::class);
->>>>>>> d59d1ca762198666cad9831f5b6eab2fafbabb43
     Route::resource('fournisseurs', FournisseurController::class);
     Route::resource('emplacements', EmplacementController::class);
     Route::resource('articles', ArticleController::class);
@@ -58,12 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::get('/notifications/{id}', [NotificationController::class, 'show'])->name('notifications.show');
     Route::post('/notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
-
-
-
-
-
-// });
+});
 
 
 /*
