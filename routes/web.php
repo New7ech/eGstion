@@ -74,9 +74,8 @@ Route::group(['prefix' => 'shop', 'as' => 'ecommerce.'], function () {
     Route::post('/panier/ajouter', [PanierController::class, 'ajouter'])->name('panier.ajouter');
     Route::post('/panier/vider', [PanierController::class, 'vider'])->name('panier.vider');
     Route::get('/panier/count', [PanierController::class, 'count'])->name('panier.count');
-    // TODO: Ajouter les routes pour mettre à jour et supprimer un article du panier dans PanierController
-    // Route::post('/panier/update', [PanierController::class, 'update'])->name('panier.update');
-    // Route::post('/panier/remove', [PanierController::class, 'remove'])->name('panier.remove');
+    Route::post('/panier/supprimer', [PanierController::class, 'remove'])->name('panier.remove');
+    Route::post('/panier/mettre-a-jour', [PanierController::class, 'update'])->name('panier.update');
 
     // Commande (Checkout)
     Route::get('/commande/checkout', [CommandeController::class, 'checkout'])->name('commande.checkout');

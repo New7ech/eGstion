@@ -38,7 +38,7 @@
                                 <tr>
                                     <td style="width: 100px;">
                                         <a href="{{ route('ecommerce.articles.show', ['slug' => $item['slug']]) }}">
-                                            <img src="{{ $item['image_url'] ?? asset('assets/img/examples/product-default-thumb.jpg') }}"
+                                            <img src="{{ $item['image_url'] ?? asset('assets/img/examples/article_placeholder_thumb.jpg') }}"
                                                  alt="{{ $item['name'] }}" class="img-fluid rounded" style="max-height: 75px; object-fit: cover;">
                                         </a>
                                     </td>
@@ -51,17 +51,26 @@
                                         {{ number_format($item['price'], 2, ',', ' ') }} €
                                     </td>
                                     <td class="text-center" style="min-width: 150px;">
-                                        {{-- TODO: Implémenter la logique de mise à jour --}}
-                                        <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" class="form-control form-control-sm text-center d-inline-block" style="width: 70px;" readonly>
+                                        <form action="{{ route('ecommerce.panier.update') }}" method="POST" class="d-inline-flex align-items-center cart-update-form">
+                                            @csrf
+                                            <input type="hidden" name="article_id" value="{{ $id }}">
+                                            <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" class="form-control form-control-sm text-center me-2" style="width: 70px;">
+                                            <button type="submit" class="btn btn-outline-primary btn-sm" title="Mettre à jour">
+                                                <i class="fas fa-sync-alt"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                     <td class="text-center fw-bold">
                                         {{ number_format($totalItem, 2, ',', ' ') }} €
                                     </td>
                                     <td class="text-center">
-                                         {{-- TODO: Implémenter la logique de suppression --}}
-                                        <button class="btn btn-danger btn-sm" title="Supprimer l'article" disabled>
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
+                                        <form action="{{ route('ecommerce.panier.remove') }}" method="POST" class="cart-remove-form">
+                                            @csrf
+                                            <input type="hidden" name="article_id" value="{{ $id }}">
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Supprimer l'article">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -74,7 +83,6 @@
                         <a href="{{ route('ecommerce.articles.index') }}" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left me-1"></i> Continuer mes achats
                         </a>
-                        {{-- Formulaire pour vider le panier --}}
                         <form action="{{ route('ecommerce.panier.vider') }}" method="POST" class="d-inline-block ms-2 cart-clear-form">
                             @csrf
                             <button type="submit" class="btn btn-outline-danger">
@@ -121,6 +129,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    const removeForms = document.querySelectorAll('.cart-remove-form');
+    removeForms.forEach(form => {
+        form.addEventListener('submit', function(event) {
+            if (!confirm("Voulez-vous vraiment retirer cet article du panier ?")) {
+                event.preventDefault();
+            }
+        });
+    });
 });
 </script>
 @endpush
