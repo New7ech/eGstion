@@ -2,27 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article; // Notre modèle Product
+use App\Models\Article;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
 class EcommerceController extends Controller
 {
     /**
-     * Affiche la page d'accueil e-commerce.
+     * Affiche la page d'accueil e-commerce avec les articles phares et les catégories.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        // Exemple: Récupérer les produits pour la page d'accueil
-        // Ces sections pourront être affinées avec des critères spécifiques
-        $newProducts = Article::where('est_visible', true)->orderBy('created_at', 'desc')->take(8)->get();
-        $popularProducts = Article::where('est_visible', true)->orderBy('quantite', 'asc')->take(8)->get(); // Exemple de "populaire"
-        $promotionalProducts = Article::where('est_visible', true)->whereNotNull('prix_promotionnel')->take(8)->get();
+        // Récupérer les 8 derniers articles visibles pour la section "Articles Étoiles"
+        $articlesPhares = Article::where('est_visible', true)
+                                 ->latest() // Ordonné par date de création, le plus récent en premier
+                                 ->take(8)
+                                 ->get();
 
-        // Pour la grille principale de produits avec pagination
-        $products = Article::where('est_visible', true)->paginate(12); // 12 produits par page
+        // Récupérer jusqu'à 4 catégories à afficher sur la page d'accueil
+        // On pourrait ajouter un critère comme 'est_populaire' si le modèle Categorie l'avait
+        $categories = Categorie::take(4)->get();
 
-        return view('ecommerce.home', compact('products', 'newProducts', 'popularProducts', 'promotionalProducts'));
+        // Passer les données à la vue
+        return view('ecommerce.home', compact('articlesPhares', 'categories'));
     }
 }
